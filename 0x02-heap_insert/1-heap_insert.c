@@ -7,13 +7,13 @@
  */
 size_t binary_tree_size(heap_t *tree)
 {
-    if (tree == NULL)
-    {
-        return (0);
-    }
+	if (tree == NULL)
+	{
+		return (0);
+	}
 
-    else
-        return (binary_tree_size(tree->left) + 1 + binary_tree_size(tree->right));
+	else
+		return (binary_tree_size(tree->left) + 1 + binary_tree_size(tree->right));
 }
 
 /**
@@ -23,14 +23,14 @@ size_t binary_tree_size(heap_t *tree)
  */
 int binary_tree_is_perfect(int num)
 {
-    num = num + 1;
-    while (num % 2 == 0)
-        num = num / 2;
+	num = num + 1;
+	while (num % 2 == 0)
+		num = num / 2;
 
-    if (num == 1)
-        return (1);
-    else
-        return (0);
+	if (num == 1)
+		return (1);
+	else
+		return (0);
 }
 
 /**
@@ -41,40 +41,40 @@ int binary_tree_is_perfect(int num)
  */
 heap_t *binary_tree_levelorder(heap_t *root, heap_t *node)
 {
-    size_t right, left;
+	size_t right, left;
 
-    if (root == NULL)
-    {
-        root = node;
-        node->parent = root;
-        return (node);
-    }
+	if (root == NULL)
+	{
+		root = node;
+		node->parent = root;
+		return (node);
+	}
 
-    right = binary_tree_size(root->right);
-    left = binary_tree_size(root->left);
+	right = binary_tree_size(root->right);
+	left = binary_tree_size(root->left);
 
-    if (right == 0 && left == 0)
-    {
-        root->left = node;
-        node->parent = root;
-        return (root);
-    }
-    else if (right == 0 && left == 1)
-    {
-        root->right = node;
-        node->parent = root;
-        return (root);
-    }
-    else if (right == left)
-        root->left = binary_tree_levelorder(root->left, node);
-    else if (right < left)
-    {
-        if (binary_tree_is_perfect(left))
-            root->right = binary_tree_levelorder(root->right, node);
-        else
-            root->left = binary_tree_levelorder(root->left, node);
-    }
-    return (root);
+	if (right == 0 && left == 0)
+	{
+		root->left = node;
+		node->parent = root;
+		return (root);
+	}
+	else if (right == 0 && left == 1)
+	{
+		root->right = node;
+		node->parent = root;
+		return (root);
+	}
+	else if (right == left)
+		root->left = binary_tree_levelorder(root->left, node);
+	else if (right < left)
+	{
+		if (binary_tree_is_perfect(left))
+			root->right = binary_tree_levelorder(root->right, node);
+		else
+			root->left = binary_tree_levelorder(root->left, node);
+	}
+	return (root);
 }
 
 /**
@@ -87,27 +87,27 @@ heap_t *binary_tree_levelorder(heap_t *root, heap_t *node)
 
 heap_t *heap_insert(heap_t **root, int value)
 {
-    heap_t *new_node = NULL;
-    int swap;
+	heap_t *new_node = NULL;
+	int swap;
 
-    new_node = binary_tree_node(NULL, value);
-    if (new_node == NULL)
-        return (NULL);
+	new_node = binary_tree_node(NULL, value);
+	if (new_node == NULL)
+		return (NULL);
 
-    if (*root == NULL)
-    {
-        *root = new_node;
-        return (new_node);
-    }
+	if (*root == NULL)
+	{
+		*root = new_node;
+		return (new_node);
+	}
 
-    *root = binary_tree_levelorder(*root, new_node);
+	*root = binary_tree_levelorder(*root, new_node);
 
-    while (new_node->parent && new_node->n > new_node->parent->n)
-    {
-        swap = new_node->parent->n;
-        new_node->parent->n = new_node->n;
-        new_node->n = swap;
-        new_node = new_node->parent;
-    }
-    return (new_node);
+	while (new_node->parent && new_node->n > new_node->parent->n)
+	{
+		swap = new_node->parent->n;
+		new_node->parent->n = new_node->n;
+		new_node->n = swap;
+		new_node = new_node->parent;
+	}
+	return (new_node);
 }
