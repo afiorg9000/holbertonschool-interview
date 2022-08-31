@@ -100,10 +100,10 @@ void grid_topple(int grid1[3][3])
 }
 
 /**
-  * sandpiles_sum - function that computes the sum of two sandpiles
-  * @grid1: 2D array
-  * @grid2: 2D array
-  */
+ * sandpiles_sum - function that computes the sum of two sandpiles
+ * @grid1: 2D array
+ * @grid2: 2D array
+ */
 
 void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 {
