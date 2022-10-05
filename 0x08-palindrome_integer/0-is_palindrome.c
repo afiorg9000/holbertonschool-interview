@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "palindrome.h"
 
 /**
@@ -10,17 +8,17 @@
 
 int is_palindrome(unsigned long n)
 {
-    unsigned long rev = 0, temp;
+unsigned long rev = 0, tmp = n;
 
-    temp = n;
-    while (n != 0)
-    {
-		rev = rev * 10 + (temp % 10);
-		temp /= 10;
-    }
-
-    if (n == rev)
-        return 1;
-    else
-        return 0;
+while(tmp != 0)
+{
+rev = rev + (tmp % 10);
+tmp = tmp / 10;
+rev = rev * 10;
+}
+if ((rev / 10) == n)
+{
+return (1);
+}
+return (0);
 }
