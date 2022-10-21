@@ -11,9 +11,9 @@ void menger(int level)
 	if (level < 0)
 		return;
 	the_level = pow(3, level);
-	for (r = 0; r < the_level; r++)
+	for (row = 0; row < the_level; row++)
 	{
-		for (column = 0; column < the_level; c++)
+		for (column = 0; column < the_level; column++)
 			putchar(sponge(row, column));
 		putchar('\n');
 	}
@@ -28,7 +28,7 @@ char sponge(int row, int column)
 {
 	while (row || column)
 	{
-		if (column % 3 == 1 && r % 3 == 1)
+		if (column % 3 == 1 && row % 3 == 1)
 			return (' ');
 		row = row / 3;
 		column = column / 3;
