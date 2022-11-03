@@ -14,7 +14,6 @@ if __name__ == "__main__":
     if n < 4:
         print('N must be at least 4')
         exit(1)
-
     sol = []
 
     def sol_queens(row, n, sol):
