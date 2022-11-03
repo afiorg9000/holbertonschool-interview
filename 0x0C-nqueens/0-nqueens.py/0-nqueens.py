@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """program that solves the N queens problem."""
-from sys import argv, exit
+import sys
 
 if __name__ == "__main__":
-    if len(argv) != 2:
+    if len(sys.argv) != 2:
         print('Usage: nqueens N')
         exit(1)
     try:
-        n = int(argv[1])
+        n = int(sys.argv[1])
     except BaseException:
         print('N must be a number')
         exit(1)
