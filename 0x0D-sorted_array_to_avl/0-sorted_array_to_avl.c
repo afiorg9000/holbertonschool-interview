@@ -6,7 +6,7 @@
  * @array: pointer to the first element of 
  * the array to be converted
  * @size: the number of element in the array
-
+ *	
  * Return: Pointer to the new AVL tree
  */
 
@@ -24,6 +24,7 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
  * binary_tree_node - creates a binary tree node
  * @parent: Parent node
  * @value: Value of node
+ *	
  * Return: create new Binary tree
  */
 
@@ -42,12 +43,13 @@ binary_tree_t *binary_tree_node(binary_tree_t *parent, int value)
 }
 
 /**
-* insert_sorted_array - inserts sorted array to a Binary Tree
-* @array: Pointer to first element of sorted array
-* @min: Minimum value
-* @max: Maximum Value
-* Return: Pointer to root node of AVL Tree, or Null on failure
-*/
+ * insert_sorted_array - inserts sorted array to a Binary Tree
+ * @array: Pointer to first element of sorted array
+ * @min: Minimum value
+ * @max: Maximum Value
+ *
+ * Return: Pointer to root node of AVL Tree, or Null on failure
+ */
 
 avl_t *insert_sorted_array(int *array, int min, int max)
 {
