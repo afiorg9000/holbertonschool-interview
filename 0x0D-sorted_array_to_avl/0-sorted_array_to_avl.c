@@ -9,7 +9,6 @@
  *	
  * Return: Pointer to the new AVL tree
  */
-
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
 	avl_t *root = NULL;
@@ -27,7 +26,6 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
  *	
  * Return: create new Binary tree
  */
-
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value)
 {
 	binary_tree_t *new_node = malloc(sizeof(binary_tree_t));
@@ -50,7 +48,6 @@ binary_tree_t *binary_tree_node(binary_tree_t *parent, int value)
  *
  * Return: Pointer to root node of AVL Tree, or Null on failure
  */
-
 avl_t *insert_sorted_array(int *array, int min, int max)
 {
 	int medium_value;
