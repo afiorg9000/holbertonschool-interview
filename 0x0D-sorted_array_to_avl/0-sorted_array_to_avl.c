@@ -1,79 +1,77 @@
 #include "binary_trees.h"
-#include <stdio.h>
 #include <stdlib.h>
-
 
 /**
  * sorted_array_to_avl - builds an AVL tree from an array
  * @array: pointer to the first element of 
  * the array to be converted
  * @size: the number of element in the array
- *
+
  * Return: Pointer to the new AVL tree
  */
 
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
+	avl_t *root = NULL;
 
-	avl_t *tree;
-	size_t i;
-
-	if (!array || !size)
+	if (array == NULL)
 		return (NULL);
-
-	tree = malloc(sizeof(avl_t));
-
-	if (!tree)
-		return (NULL);
-
-	tree->n = array[0];
-	tree->parent = NULL;
-	tree->left = NULL;
-	tree->right = NULL;
-
-	for (i = 1; i < size; i++)
-	{
-		insert_node(&tree, array[i]);
-	}
-
-	return (tree);
+	root = insert_sorted_array(array, 0, size - 1);
+	return (root);
 }
 
 /**
- * insert_node - inserts a node in a binary tree.
- * @tree: Pointer to the node to insert
- * @value: Value to insert
- *
- * Return: If there is no node in the binary tree
- * or if there are no values to be inserted 
- * then it will return.
+ * binary_tree_node - creates a binary tree node
+ * @parent: Parent node
+ * @value: Value of node
+ * Return: create new Binary tree
  */
 
-void insert_node(avl_t **tree, int value)
+binary_tree_t *binary_tree_node(binary_tree_t *parent, int value)
 {
-	avl_t *new_node;
-	avl_t *current;
+	binary_tree_t *new_node = malloc(sizeof(binary_tree_t));
 
-	if (!tree || !*tree)
-		return;
-
-	current = *tree;
-	new_node = malloc(sizeof(avl_t));
-
-	if (!new_node)
-		return;
+	if (new_node == NULL)
+		return (NULL);
 
 	new_node->n = value;
-	new_node->parent = current;
+	new_node->parent = parent;
 	new_node->left = NULL;
 	new_node->right = NULL;
-
-	if (current->left == NULL)
-		current->left = new_node;
-	else if (current->right == NULL)
-		current->right = new_node;
-	else if (current->left->left == NULL || current->left->right == NULL)
-		insert_node(&current->left, value);
-	else
-		insert_node(&current->right, value);
+	return (new_node);
 }
+
+/**
+* insert_array - inserts sorted array to a Binary Tree
+* @array: Pointer to first element of sorted array
+* @min: Minimum value
+* @max: Maximum Value
+* Return: Pointer to root node of AVL Tree, or Null on failure
+*/
+
+avl_t *insert_sorted_array(int *array, int min, int max)
+{
+	int medium_value;
+	avl_t *tree;
+	binary_tree_t *parent = NULL;
+
+	if (min > max)
+		return (NULL);
+
+	medium_value = (min + max) / 2;
+	tree = binary_tree_node(parent, array[medium_value]);
+
+	if (tree == NULL)
+		return (NULL);
+
+	tree->left = insert_sorted_array(array, min, medium_value - 1);
+	tree->right = insert_sorted_array(array, medium_value + 1, max);
+
+	if (tree->left)
+		tree->left->parent = tree;
+
+	if (tree->right)
+		tree->right->parent = tree;
+	return (tree);
+}
+
