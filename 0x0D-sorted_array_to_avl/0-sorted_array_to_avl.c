@@ -42,7 +42,7 @@ binary_tree_t *binary_tree_node(binary_tree_t *parent, int value)
 }
 
 /**
-* insert_array - inserts sorted array to a Binary Tree
+* insert_sorted_array - inserts sorted array to a Binary Tree
 * @array: Pointer to first element of sorted array
 * @min: Minimum value
 * @max: Maximum Value
@@ -74,4 +74,3 @@ avl_t *insert_sorted_array(int *array, int min, int max)
 		tree->right->parent = tree;
 	return (tree);
 }
-
