@@ -3,10 +3,10 @@
 
 /**
  * sorted_array_to_avl - builds an AVL tree from an array
- * @array: pointer to the first element of 
+ * @array: pointer to the first element of
  * the array to be converted
  * @size: the number of element in the array
- *	
+ *
  * Return: Pointer to the new AVL tree
  */
 avl_t *sorted_array_to_avl(int *array, size_t size)
@@ -23,7 +23,7 @@ avl_t *sorted_array_to_avl(int *array, size_t size)
  * binary_tree_node - creates a binary tree node
  * @parent: Parent node
  * @value: Value of node
- *	
+ *
  * Return: create new Binary tree
  */
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value)
