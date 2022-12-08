@@ -1,10 +1,10 @@
 #!/usr/bin/node
 
-const axios = require('axios');
+const request = require('request');
 
-axios.get(`https://swapi-api.hbtn.io/api/films/${process.argv[2]}`).then(res => {
+request.get(`https://swapi-api.hbtn.io/api/films/${process.argv[2]}`).then(res => {
         res.data.characters.forEach(async(data) => {
-            await axios.get(data)
+            await request.get(data)
                 .then(res => {
                     console.log(res.data.name);
                 });
