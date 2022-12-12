@@ -31,6 +31,7 @@ void heap(int *arr, int n, int i, size_t size)
 	int left = 2 * i + 1;
 	int right = 2 * i + 2;
 	int max = i;
+
 	if (left < n && arr[left] > arr[max])
 		max = left;
 
