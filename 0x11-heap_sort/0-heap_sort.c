@@ -11,7 +11,6 @@ void heap_sort(int *array, size_t size)
 
 	for (i = size / 2 ; i > 0; i--)
 		heap(array, size, i - 1, size);
-
 	for (i = size - 1; i > 0; i--)
 	{
 		swap(&array[0], &array[i], array, size);
@@ -30,9 +29,8 @@ void heap_sort(int *array, size_t size)
 void heap(int *arr, int n, int i, size_t size)
 {
 	int left = 2 * i + 1;
-    int max = i;
 	int right = 2 * i + 2;
-
+	int max = i;
 	if (left < n && arr[left] > arr[max])
 		max = left;
 
