@@ -44,7 +44,6 @@ void heap(int *arr, int n, int i, size_t size)
 		swap(&arr[i], &arr[max], arr, size);
 		heap(arr, n, max, size);
 	}
-
 }
 
 /**
@@ -56,9 +55,9 @@ void heap(int *arr, int n, int i, size_t size)
  */
 void swap(int *a, int *b, int *array, size_t n)
 {
-
 int temp = *a;
 *a = *b;
 *b = temp;
+
 print_array(array, n);
 }
