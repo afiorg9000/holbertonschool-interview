@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""counts the number of times a word apppears in a subreddit"""
 import requests
 
 
