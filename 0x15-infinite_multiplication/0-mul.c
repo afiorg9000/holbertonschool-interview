@@ -88,12 +88,13 @@ int _isdigit(char *s)
  */
 char *operations(char *num1, char *num2, int len1, int len2)
 {
-	char *result = malloc(sizeof(char) * (len1 + len2));
-	int i, j, carry;
+	char *result = NULL;
+	int i, j, carry, len_total = (len1 + len2);
 
+	result = malloc(sizeof(char) * len_total);
 	if (!result)
 		err_message("Error");
-	for (i = 0; i < (len1 + len2); i++)
+	for (i = 0; i < len_total; i++)
 		result[i] = '0';
 	for (i = len1 - 1; i >= 0; i--)
 	{
