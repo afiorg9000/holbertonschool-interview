@@ -1,28 +1,53 @@
 #!/usr/bin/python3
 """counts the number of times a word apppears in a subreddit"""
 import requests
+import sys
 
 
-def count_words(subreddit, word_list):
+def count_words(subreddit, word_list, kw_cont={}, next_pg=None, reap_kw={}):
     """Counts the number of times a word appears in a subreddit"""
-    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) \
-    AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
-    params = {'limit': 100}
-    r = requests.get(url, headers=headers, params=params,
-                     allow_redirects=False)
-    if r.status_code == 200:
-        data = r.json().get('data')
-        children = data.get('children')
-        titles = [child.get('data').get(
-            'title').lower().split() for child in children]
-        words = [word for title in titles for word in title]
-        word_count = {word: words.count(word) for word in word_list}
-        word_count = {k: v for k, v in sorted(word_count.items(),
-                                              key=lambda item: (-item[1],
-                                                                item[0]))}
-        for k, v in word_count.items():
-            if v > 0:
-                print("{}: {}".format(k, v))
+
+    headers = {"User-Agent": "nildiert"}
+
+    if next_pg:
+        subr = requests.get('https://reddit.com/r/' + subreddit +
+                            '/hot.json?after=' + next_pg, headers=headers)
     else:
-        return None
+        subr = requests.get('https://reddit.com/r/' + subreddit +
+                            '/hot.json', headers=headers)
+
+    if subr.status_code == 404:
+        return
+
+    if kw_cont == {}:
+        for word in word_list:
+            kw_cont[word] = 0
+            reap_kw[word] = word_list.count(word)
+
+    subr_dict = subr.json()
+    subr_data = subr_dict['data']
+    next_pg = subr_data['after']
+    subr_posts = subr_data['children']
+
+    for post in subr_posts:
+        post_data = post['data']
+        post_title = post_data['title']
+        title_words = post_title.split()
+        for w in title_words:
+            for key in kw_cont:
+                if w.lower() == key.lower():
+                    kw_cont[key] += 1
+
+    if next_pg:
+        count_words(subreddit, word_list, kw_cont, next_pg, reap_kw)
+
+    else:
+        for key, val in reap_kw.items():
+            if val > 1:
+                kw_cont[key] *= val
+
+        sorted_abc = sorted(kw_cont.items(), key=lambda x: x[0])
+        sorted_res = sorted(sorted_abc, key=lambda x: (-x[1], x[0]))
+        for res in sorted_res:
+            if res[1] > 0:
+                print('{}: {}'.format(res[0], res[1]))
