@@ -40,7 +40,7 @@ int _strlen(char *str)
 }
 
 /**
- * multiplication - Create the multiplications of the strings
+ * operations - Create the multiplications of the strings
  * @num1: Number one
  * @num2: Number two
  *
