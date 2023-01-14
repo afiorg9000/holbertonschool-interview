@@ -1,6 +1,83 @@
 #include "holberton.h"
 #include <stdlib.h>
 
+/**
+ * _puts - prints a string.
+ * @s: a string.
+ * @l: length.
+ * Return: Nothing.
+ */
+void _puts(char *s, int l)
+{
+	for (; l; l--, s++)
+		if (*s)
+			_putchar(*s);
+	_putchar(0xA);
+}
+
+/**
+ * is_digit - Identify if a string is a number
+ * @str: String to identify
+ *
+ * Return: 1 is digit, otherwise 0 on failure
+ */
+char is_digit(char *str)
+{
+	if (*str && (*str < 48 || *str > 57))
+		return (0);
+	return (*str ? is_digit(str + 1) : 1);
+}
+
+/**
+ * _strlen - Calculate the size of the string
+ * @str: String to evaluate
+ *
+ * Return: String lenght
+ */
+int _strlen(char *str)
+{
+	return (*str ? _strlen(str + 1) + 1 : 0);
+}
+
+/**
+ * multiplication - Create the multiplications of the strings
+ * @num1: Number one
+ * @num2: Number two
+ *
+ * Return: 1 if successful or 0 if failed
+ */
+int operations(char *num1, char *num2)
+{
+	int carry = 0, len1 = 0, len2 = 0, len = 0;
+	char *result = NULL;
+
+	len1 = _strlen(num1) - 1;
+	len2 = _strlen(num2) - 1;
+	len = len1 + len2 + 2;
+	result = calloc(sizeof(char), (len + 1));
+	if (!result)
+	{
+		_puts("Error", 48);
+		return (0);
+	}
+
+	for (; num1[len1]; len1--)
+	{
+		for (carry = 0, len2 = _strlen(num2) - 1; num2[len2]; len2--)
+		{
+			carry += ((num2[len2] - '0') * (num1[len1] - '0'));
+			carry += result[(len1 + len2) + 1] ?
+			result[(len1 + len2) + 1] - '0' : result[(len1 + len2) + 1];
+			result[(len1 + len2) + 1] = (carry % 10) + '0';
+			carry /= 10;
+		}
+		if (carry != 0)
+			result[(len1 + len2) + 1] += (carry + '0');
+	}
+	_puts(result, len);
+	free(result);
+	return (1);
+}
 
 /**
  * main - multiplies two positive numbers.
@@ -14,100 +91,12 @@
  */
 int main(int ac, char **av)
 {
-	int len1 = 0, len2 = 0;
-	char *num1 = av[1], *num2 = av[2], *result = NULL;
-
-	if (ac != 3 || _isdigit(num1) || _isdigit(num2))
-		err_message("Error");
-	if (av[1][0] == 48 || av[2][0] == 48)
-		_puts("0"), exit(0);
-
-	while (num1[len1])
-		len1++;
-	while (num2[len2])
-		len2++;
-
-	result = operations(num1, num2, len1, len2);
-	if (result[0] == '0')
-		_puts(result + 1);
-	else
-		_puts(result);
-	free(result);
+	(void) av;
+	if (ac != 3 || !is_digit(av[1]) || !is_digit(av[2])
+	|| !operations(av[1], av[2]))
+	{
+		_puts("Error", 5);
+		exit(98);
+	}
 	return (0);
-}
-
-/**
- * _puts - prints a string.
- * @s: a string.
- * Return: Nothing.
- */
-void _puts(char *s)
-{
-	if (*s != '\0')
-	{
-		_putchar(*s);
-		_puts(s + 1);
-	}
-}
-
-/**
- * err_message - print s and exit 98 status
- * @s: error message to print
- * Return: Nothing
- */
-void err_message(char *s)
-{
-	_puts(s);
-	exit(98);
-}
-
-/**
- * _isdigit - check if s is a number or not.
- * @s: string to check.
- * Return: 0 if s is a number otherwise 1.
- */
-int _isdigit(char *s)
-{
-	int i, digit = 0;
-
-	for (i = 0; s[i] && !digit; i++)
-	{
-		if (s[i] < '0' || s[i] > '9')
-			digit++;
-	}
-	return (digit);
-}
-
-/**
- * operations - multiplies, adds and stores the result in a string.
- * @num1: first number.
- * @num2: second number.
- * @len1: length of num1.
- * @len2: length of num2.
- * Return: result of multiplies.
- */
-char *operations(char *num1, char *num2, int len1, int len2)
-{
-	char *result = NULL;
-	int i, j, carry, len_total = (len1 + len2);
-
-	result = malloc(sizeof(char) * len_total);
-	if (!result)
-		err_message("Error");
-	for (i = 0; i < len_total; i++)
-		result[i] = '0';
-	for (i = len1 - 1; i >= 0; i--)
-	{
-		carry = 0;
-		for (j = len2 - 1; j >= 0; j--)
-		{
-			carry += (num1[i] - '0') * (num2[j] - '0');
-			carry += result[i + j + 1] - '0';
-			result[i + j + 1] = (carry % 10) + '0';
-			carry /= 10;
-		}
-		if (carry)
-			result[i + j + 1] = (carry % 10) + '0';
-	}
-	return (result);
 }
