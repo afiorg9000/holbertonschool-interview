@@ -1,11 +1,13 @@
-#ifndef FILE_HOLBERTON
-#define FILE_HOLBERTON
-#include <stdlib.h>
+#ifndef HOLBERTON_H
+#define HOLBERTON_H
 
-int main(int ac, char **av);
-int _strlen(char *str);
-int operations(char *num1, char *num2);
-char is_digit(char *str);
-void _puts(char *s, int l);
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <ctype.h>
+
 int _putchar(char c);
-#endif
+int _isnumber(char *str);
+char *_alloc(unsigned int nmemb);
+
+#endif /* HOLBERTON_H */
