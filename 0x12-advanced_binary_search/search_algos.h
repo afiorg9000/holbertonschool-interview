@@ -1,12 +1,11 @@
-#ifndef _SEARCH_ALGOS_H_
-#define _SEARCH_ALGOS_H_
-
+#ifndef SEARCH_ALGOS
+#define SEARCH_ALGOS
 
 #include <stdio.h>
 #include <stdlib.h>
 
+void print_array(int *array, int first, int last);
+int recursive_search(int *array, size_t first, size_t last, int value);
 int advanced_binary(int *array, size_t size, int value);
-int binary_search(int *arr, size_t left, size_t right, int x);
-void print_array(int *array, size_t low, size_t size);
 
-#endif /* _SEARCH_ALGOS_H_ */
+#endif /*SEARCH ALGOS*/
