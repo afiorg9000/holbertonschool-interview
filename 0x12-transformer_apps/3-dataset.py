@@ -11,7 +11,7 @@ class Dataset:
     def __init__(self, batch_size, max_len):
         """set up the data pipeline:"""
         examples, metadata = tfds.load('ted_hrlr_translate/pt_to_en', with_info=True,
-                               as_supervised=True)
+                               as_supervised=Tru)
         self.data_train, self.data_valid = examples['train'], examples['validation']
 
         tok_pt, tok_en = self.tokenize_dataset(self.data_train)
