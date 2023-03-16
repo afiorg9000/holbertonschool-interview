@@ -31,7 +31,8 @@ if (!*list)
 new_node->prev = new_node;
 new_node->next = new_node;
 *list = new_node;
-} else
+}
+else
 {
 new_node->prev = (*list)->prev;
 new_node->next = *list;
@@ -43,7 +44,7 @@ return (new_node);
 }
 
 /**
- * add_node_begin - Add a new node to the beginning of a double circular linked list.
+ * add_node_begin - Add a new node to the beginning of a list.
  * @list: The list to modify.
  * @str: The string to copy into the new node.
  * Return: Address of the new node, or NULL on failure.
@@ -60,8 +61,7 @@ if (!new_node)
 return (NULL);
 
 new_node->str = strdup(str);
-if (!new_node->str)
-{
+if (!new_node->str) {
 free(new_node);
 return (NULL);
 }
@@ -69,7 +69,8 @@ return (NULL);
 if (!*list) {
 new_node->prev = new_node;
 new_node->next = new_node;
-} else {
+}
+else {
 new_node->prev = (*list)->prev;
 new_node->next = *list;
 (*list)->prev->next = new_node;
