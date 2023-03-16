@@ -61,16 +61,19 @@ if (!new_node)
 return (NULL);
 
 new_node->str = strdup(str);
-if (!new_node->str) {
+if (!new_node->str)
+{
 free(new_node);
 return (NULL);
 }
 
-if (!*list) {
+if (!*list)
+{
 new_node->prev = new_node;
 new_node->next = new_node;
 }
-else {
+else
+{
 new_node->prev = (*list)->prev;
 new_node->next = *list;
 (*list)->prev->next = new_node;
